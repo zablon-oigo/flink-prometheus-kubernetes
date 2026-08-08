@@ -1,0 +1,31 @@
+--- 
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: custom-job-ha
+spec:
+  image: zablondev/flink-job:latest
+  flinkVersion: v1_20
+  flinkConfiguration:
+    taskmanager.numberOfTaskSlots: "2"
+
+    s3.access.key: admin
+    s3.secret.key: password
+    s3.path.style.access: "true"
+
+    state.backend: rocksdb
+    state.backend.incremental: "true"
+    state.checkpoints.dir: s3://flink-data/checkpoints
+    state.savepoints.dir: s3://flink-data/savepoints
+
+    high-availability.type: kubernetes
+    high-availability.storageDir: s3://flink-data/ha
+  serviceAccount: flink
+  jobManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  taskManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
