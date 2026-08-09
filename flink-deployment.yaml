@@ -29,3 +29,15 @@ spec:
     resource:
       memory: "2048m"
       cpu: 1
+  podTemplate:
+    spec:
+      containers:
+        - name: flink-main-container
+          env:
+            - name: ENABLE_BUILT_IN_PLUGINS
+              value: "flink-s3-fs-presto-1.20.0.jar"
+  job:
+    jarURI: local:///opt/flink/examples/streaming/flink-hello-world-1.0.jar
+    parallelism: 2
+    upgradeMode: savepoint
+    state: running
