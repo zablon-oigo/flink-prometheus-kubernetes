@@ -4,7 +4,7 @@ kind: FlinkDeployment
 metadata:
   name: logging-job
 spec:
-  image: decodable-examples/hello-world-job:1.0
+  image: zablondev/flink-job:latest
   flinkVersion: v1_20
   flinkConfiguration:
     taskmanager.numberOfTaskSlots: "2"
